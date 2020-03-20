@@ -27,6 +27,13 @@ class GigsTableViewController: UITableViewController {
             // TODO: fetch gigs here
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let loginVC = segue.destination as? LoginViewController else { return }
+        loginVC.gigController = gigController
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+    }
 
     // MARK: - Table view data source
 
@@ -74,15 +81,4 @@ class GigsTableViewController: UITableViewController {
         return true
     }
     */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
