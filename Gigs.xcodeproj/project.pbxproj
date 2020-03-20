@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		639A64E22424720800F3FDD6 /* GigDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639A64E12424720800F3FDD6 /* GigDetailViewController.swift */; };
 		63BA743C2421B38400465E75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA743B2421B38400465E75 /* AppDelegate.swift */; };
 		63BA743E2421B38400465E75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BA743D2421B38400465E75 /* SceneDelegate.swift */; };
 		63BA74432421B38400465E75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63BA74412421B38400465E75 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		639A64E12424720800F3FDD6 /* GigDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GigDetailViewController.swift; sourceTree = "<group>"; };
 		63BA74382421B38400465E75 /* Gigs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gigs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63BA743B2421B38400465E75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63BA743D2421B38400465E75 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			children = (
 				63BA74522421B56600465E75 /* GigsTableViewController.swift */,
 				63BA74542421C00800465E75 /* LoginViewController.swift */,
+				639A64E12424720800F3FDD6 /* GigDetailViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63BA74572421C0EF00465E75 /* Bearer.swift in Sources */,
+				639A64E22424720800F3FDD6 /* GigDetailViewController.swift in Sources */,
 				63BA745C2421C1A000465E75 /* GigController.swift in Sources */,
 				63BA74552421C00800465E75 /* LoginViewController.swift in Sources */,
 				63BA745A2421C10000465E75 /* User.swift in Sources */,
