@@ -8,9 +8,17 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+enum LoginType {
+    case signUp
+    case logIn
+}
 
-    @IBOutlet weak var signUpInSegmentControl: UISegmentedControl!
+class LoginViewController: UIViewController {
+    
+    var gigController: GigController?
+    var loginType: LoginType = .signUp
+
+    @IBOutlet weak var loginTypeSegmentControl: UISegmentedControl!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signUpInButton: UIButton!
@@ -18,25 +26,79 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        signUpInButton.backgroundColor = UIColor(hue: 190/360, saturation: 70/100, brightness: 80/100, alpha: 1.0)
+        signUpInButton.tintColor = .white
+        signUpInButton.layer.cornerRadius = 8.0
     }
     
-    @IBAction func signUpInSegmentNewValue(_ sender: Any) {
-        
+    @IBAction func loginTypeSegmentNewValue(_ sender: Any) {
+        if loginTypeSegmentControl.selectedSegmentIndex == 0 {
+            loginType = .signUp
+            signUpInButton.titleLabel?.text = "Sign Up"
+        } else {
+            loginType = .logIn
+            signUpInButton.titleLabel?.text = "Log In"
+        }
     }
     
     @IBAction func signUpInButtonPressed(_ sender: Any) {
+        guard
+            let gigController = gigController,
+            let username = usernameTextField.text,
+            let password = passwordTextField.text,
+            !username.isEmpty,
+            !password.isEmpty else { return }
         
+        let user = User(username: username, password: password)
+        
+        switch loginType {
+        case .signUp:
+            gigController.signUp(with: user, completion: { error in
+                guard error == nil else {
+                    print("Error signing up: \(error!)")
+                    return
+                }
+                
+                #warning("change this to call function")
+                DispatchQueue.main.async {
+                    let alertController = UIAlertController(title: "Sign Up Successful", message: "Now please log in.", preferredStyle: .alert)
+                    alertController.addAction(
+                        UIAlertAction(title: "OK", style: .default, handler: nil)
+                    )
+                    self.present(alertController, animated: true) {
+                        self.loginType = .logIn
+                        self.loginTypeSegmentControl.selectedSegmentIndex = 1
+                        self.signUpInButton.setTitle("Log In", for: .normal)
+                    }
+                }
+            })
+        case .logIn:
+            gigController.logIn(with: user, completion: { error in
+                guard error == nil else {
+                    print("Error loggin in: \(error!)")
+                    #warning("show alert here")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            })
+        }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func showAlert(title: String, message: String) {
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alertController.addAction(
+                UIAlertAction(title: "OK", style: .default, handler: nil)
+            )
+            #warning("change this to take a custom closure")
+            self.present(alertController, animated: true) {
+                self.loginType = .logIn
+                self.loginTypeSegmentControl.selectedSegmentIndex = 1
+                self.signUpInButton.setTitle("Log In", for: .normal)
+            }
+        }
     }
-    */
-
 }
