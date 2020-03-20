@@ -59,24 +59,17 @@ class LoginViewController: UIViewController {
                     return
                 }
                 
-                #warning("change this to call function")
-                DispatchQueue.main.async {
-                    let alertController = UIAlertController(title: "Sign Up Successful", message: "Now please log in.", preferredStyle: .alert)
-                    alertController.addAction(
-                        UIAlertAction(title: "OK", style: .default, handler: nil)
-                    )
-                    self.present(alertController, animated: true) {
-                        self.loginType = .logIn
-                        self.loginTypeSegmentControl.selectedSegmentIndex = 1
-                        self.signUpInButton.setTitle("Log In", for: .normal)
-                    }
+                self.showAlert(title: "Sign Up Successful", message: "Now please log in.") {
+                    self.loginType = .logIn
+                    self.loginTypeSegmentControl.selectedSegmentIndex = 1
+                    self.signUpInButton.setTitle("Log In", for: .normal)
                 }
             })
         case .logIn:
             gigController.logIn(with: user, completion: { error in
                 guard error == nil else {
                     print("Error loggin in: \(error!)")
-                    #warning("show alert here")
+                    self.showAlert(title: "Error logging in", message: "Check username and password") {}
                     return
                 }
                 
@@ -87,17 +80,14 @@ class LoginViewController: UIViewController {
         }
     }
     
-    private func showAlert(title: String, message: String) {
+    private func showAlert(title: String, message: String, completion: @escaping () -> Void) {
         DispatchQueue.main.async {
             let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
             alertController.addAction(
                 UIAlertAction(title: "OK", style: .default, handler: nil)
             )
-            #warning("change this to take a custom closure")
             self.present(alertController, animated: true) {
-                self.loginType = .logIn
-                self.loginTypeSegmentControl.selectedSegmentIndex = 1
-                self.signUpInButton.setTitle("Log In", for: .normal)
+                completion()
             }
         }
     }
